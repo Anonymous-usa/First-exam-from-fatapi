@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from models import User, Author, Book
-from schemas import UserCreate, AuthorCreate, BookCreate
+from schemas import UserCreateSchemas, AuthorCreateSchemas, BookCreateSchemas
 from auth import get_password_hash
 
-def create_user(db: Session, user: UserCreate):
+def create_user(db: Session, user: UserCreateSchemas):
     hashed_pw = get_password_hash(user.password)
     db_user = User(username=user.username, email=user.email, hashed_password=hashed_pw)
     db.add(db_user)
@@ -14,7 +14,7 @@ def create_user(db: Session, user: UserCreate):
 def get_user_by_username(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()
 
-def create_author(db: Session, author: AuthorCreate):
+def create_author(db: Session, author: AuthorCreateSchemas):
     db_author = Author(**author.dict())
     db.add(db_author)
     db.commit()
@@ -24,7 +24,7 @@ def create_author(db: Session, author: AuthorCreate):
 def get_authors(db: Session):
     return db.query(Author).all()
 
-def create_book(db: Session, book: BookCreate):
+def create_book(db: Session, book: BookCreateSchemas):
     db_book = Book(**book.dict())
     db.add(db_book)
     db.commit()

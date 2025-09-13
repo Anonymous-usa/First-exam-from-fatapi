@@ -8,7 +8,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column(unique=True)
     hashed_password: Mapped[str]
-    role = Mapped[str] = mapped_column(default='user')
+    role: Mapped[str] = mapped_column(default='user')
 
 class Author(Base):
     __tablename__ = "authors"
